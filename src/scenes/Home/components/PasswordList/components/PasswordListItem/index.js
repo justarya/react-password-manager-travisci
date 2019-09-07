@@ -38,7 +38,7 @@ const PasswordListItem = ({ password, deletePassword }) => {
   }
   return (
     <>
-      <TableRow>
+      <TableRow data-testid="password-list-item">
         <TableCell component="th" scope="row">
           {password.url}
         </TableCell>
@@ -47,10 +47,10 @@ const PasswordListItem = ({ password, deletePassword }) => {
         <TableCell align="left">{new Date(password.createdAt.seconds * 1000).toUTCString() || '-'}</TableCell>
         <TableCell align="left">{new Date(password.updatedAt.seconds * 1000).toUTCString() || '-'}</TableCell>
         <TableCell align="right">
-          <IconButton to={'/edit/' + password.id} component={Link}>
-            <EditIcon />
+          <IconButton to={'/edit/' + password.id} component={Link} data-testid="button--password-list-item--edit">
+            <EditIcon/>
           </IconButton>
-          <IconButton onClick={localDeletePassword}>
+          <IconButton data-testid="button--password-list-item--delete" onClick={localDeletePassword}>
             <DeleteIcon />
           </IconButton>
         </TableCell>

@@ -15,7 +15,7 @@ const Navigation = () => {
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant="h6" style={{ flexGrow: 1 }} data-testid="navigation-brand">
             React Password Manager
           </Typography>
           <Button color="inherit">Login</Button>

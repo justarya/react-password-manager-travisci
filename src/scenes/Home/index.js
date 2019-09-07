@@ -2,8 +2,8 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 
 import PasswordList from './components/PasswordList'
-import AddPasswordForm from '../AddPasswordForm'
-import EditPasswordForm from '../EditPasswordForm'
+import AddPasswordForm from './scenes/AddPasswordForm'
+import EditPasswordForm from './scenes/EditPasswordForm'
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +17,7 @@ const Home = () => {
           Password Manager
         </Typography>
         <div className="main__action">
-          <Button variant="contained" color="primary" component={Link} to="/add">
+          <Button  data-testid="button-add-password" variant="contained" color="primary" component={Link} to="/add">
             Add Password
           </Button>
         </div>

@@ -1,35 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addPassword } from '../../services/store/actions'
+import { editPassword, fetchPassword, clearPassword } from '../../../../services/store/actions'
 
-import Modal from '@material-ui/core/Modal'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import Modal from '@material-ui/core/Modal';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircleOutline'
 import CheckCircleOutlineIcon from '@material-ui/icons/RadioButtonUnchecked'
 
-import passwordValidation from '../../services/helpers/passwordValidation'
+import passwordValidation from '../../../../services/helpers/passwordValidation'
 
-const AddPasswordForm = ({ history, addPassword }) => {
+const EditPasswordForm = ({ match, history, editPassword, fetchPassword, detailPassword, clearPassword }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [url, setUrl] = useState('')
-
+  
   const [passwordValidate, setPasswordValidate] = useState({})
+
+  useEffect(() => {
+    fetchPassword(match.params.id)
+  }, [])
+  
+  useEffect(() => {
+    if (detailPassword) {
+      setUsername(detailPassword.username)
+      setPassword(detailPassword.password)
+      setUrl(detailPassword.url)
+      passwordValidation(detailPassword.password, setPasswordValidate, setPassword)
+    }
+  }, [ detailPassword ])
 
   const handleClose = () => {
     history.push('/')
+    clearPassword()
   }
 
-  const localAddPassword = (e) => {
+  const localEditPassword = (e) => {
     e.preventDefault()
-    addPassword({ url, username, password })
+    editPassword({ id: match.params.id, url, username, password })
     handleClose()
   }
 
@@ -62,21 +76,23 @@ const AddPasswordForm = ({ history, addPassword }) => {
         onClose={handleClose}
       >
         <div style={modalStyle} className='paper'>
-          <Typography variant="h5" component="h5" gutterBottom>
-            Add Password
+          <Typography variant="h5" component="h5" data-testid="edit-password--title" gutterBottom>
+            Edit Password
           </Typography>
-          <form onSubmit={localAddPassword}>
+          <form onSubmit={localEditPassword}>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--url">URL</InputLabel>
-              <Input id="input--url" onChange={(e) => setUrl(e.target.value)} />
+              <Input id="input--url" defaultValue=" " value={ url } onChange={(e) => setUrl(e.target.value)} placeholder="URL" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--url" }}/>
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--username">Username</InputLabel>
-              <Input id="input--username" onChange={(e) => setUsername(e.target.value)} />
+              <Input id="input--username" defaultValue=" " value={ username } onChange={(e) => setUsername(e.target.value)} placeholder="Username" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--username" }}/>
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--password">Password</InputLabel>
-              <Input id="input--password" aria-describedby="my-helper-text" onChange={localPasswordValidation} autoComplete='off'/>
+              <Input id="input--password" defaultValue=" " aria-describedby="my-helper-text" value={ password } onChange={localPasswordValidation} autoComplete='off' placeholder="Password" inputProps={{ "data-testid": "edit-password--input--password" }}/>
+            </FormControl>
+            <FormControl style={formStyle} data-testid="edit-password--input--password-validate">
               <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.uppercase ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one uppercase characther</FormHelperText>
               <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.lowercase ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one lowercase characther</FormHelperText>
               <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.special ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one special character (#$@!&%...)</FormHelperText>
@@ -84,7 +100,7 @@ const AddPasswordForm = ({ history, addPassword }) => {
               <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.charLength ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have more than five character</FormHelperText>
             </FormControl>
             <FormControl style={formStyle}>
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" variant="contained" color="primary" data-testid="edit-password--submit">
                 Submit
               </Button>
             </FormControl>
@@ -96,13 +112,21 @@ const AddPasswordForm = ({ history, addPassword }) => {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    detailPassword: state.password.detail.value
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPassword: (value) => dispatch(addPassword(value))
+    editPassword: (value) => dispatch(editPassword(value)),
+    fetchPassword: (value) => dispatch(fetchPassword(value)),
+    clearPassword: () => dispatch(clearPassword())
   }
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(withRouter(AddPasswordForm))
+)(EditPasswordForm)

@@ -17,7 +17,7 @@ const PasswordList = ({ passwords, fetchPasswords }) => {
   }, [])
   return (
     <Paper>
-      <Table>
+      <Table data-testid="table-password-list">
         <TableHead>
           <TableRow>
             <TableCell>URL</TableCell>
@@ -28,7 +28,7 @@ const PasswordList = ({ passwords, fetchPasswords }) => {
             <TableCell align="right">Tools</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody data-testid="password-list">
           {
             passwords.map((password) => <PasswordListItem password={password} key={password.id}/>)
           }
