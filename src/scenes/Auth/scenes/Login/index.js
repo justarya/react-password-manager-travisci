@@ -37,10 +37,10 @@ const Login = ({ login }) => {
         </FormControl>
         <FormControl style={formControlStyle}>
           <InputLabel htmlFor="input--password">Password</InputLabel>
-          <Input id="input--password" required onChange={(e) => setPassword(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--email" }} />
+          <Input id="input--password" required onChange={(e) => setPassword(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--password" }} />
         </FormControl>
         <FormControl style={formControlStyle}>
-          <Button type="submit" variant="contained" color="primary" data-testid="login">
+          <Button type="submit" variant="contained" color="primary" data-testid="login--submit">
             Submit
           </Button>
         </FormControl>

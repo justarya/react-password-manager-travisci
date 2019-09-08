@@ -1,4 +1,4 @@
-export default (cb) => {
+export default (uid, cb) => {
   const passwords = [{
     id: 1234,
     url: 'http://www.google.com',
@@ -9,7 +9,8 @@ export default (cb) => {
     },
     updatedAt: {
       seconds: '1567857365'
-    }
+    },
+    uid,
   }]
-  return cb(passwords)
+  cb(passwords)
 }

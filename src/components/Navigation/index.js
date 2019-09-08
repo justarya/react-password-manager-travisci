@@ -26,7 +26,7 @@ const Navigation = ({ isLogin, logout }) => {
             isLogin ?
               <Button color="inherit" onClick={ logout }>Logout</Button>
               :
-              <Button color="inherit" component={(props) => <Link to="/auth/login" {...props} />}>Login</Button>
+              <Button color="inherit" to="/auth/login" component={Link}>Login</Button>
           }
         </Toolbar>
       </AppBar>
