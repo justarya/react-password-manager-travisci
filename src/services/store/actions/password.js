@@ -5,6 +5,7 @@ import ServiceAddPassword from '../../apis/password/addPassword'
 import ServiceEditPassword from '../../apis/password/editPassword'
 
 import { createError } from './error'
+import store from '../index'
 
 export const RECEIVE_ADD_PASSWORD = 'RECEIVE_ADD_PASSWORD'
 export const RECEIVE_DELETE_PASSWORD = 'RECEIVE_DELETE_PASSWORD'
@@ -15,7 +16,8 @@ export const RECEIVE_UPDATE_PASSWORD = 'RECEIVE_UPDATE_PASSWORD'
 
 export const addPassword = ({url, username, password}) => {
   return dispatch => {
-    ServiceAddPassword({url, username, password})
+    const uid = store.getState().auth.user.uid
+    ServiceAddPassword({url, username, password, uid})
       .then(data => {
         console.log('success')
       })
@@ -45,9 +47,12 @@ export const editPassword = ({id, username, password, url}) => {
 
 export const fetchPasswords = () => {
   return dispatch => {
-    ServiceFetchPasswords((passwords) => {
-      dispatch(receivePasswords(passwords))
-    })
+    const uid = store.getState().auth.user.uid    
+    if(uid) {
+      ServiceFetchPasswords(uid, (passwords) => {
+        dispatch(receivePasswords(passwords))
+      })
+    }
   }
 }
 

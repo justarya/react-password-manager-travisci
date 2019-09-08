@@ -1,8 +1,9 @@
 import firebase from '../firebase'
 
-export default (cb) => {
+export default (uid, cb) => {
   return firebase.firestore().collection('passwords')
     .orderBy('createdAt', 'desc')
+    .where('uid','==',uid)
     .onSnapshot((querySnapshot) => {
       const passwords = []
       querySnapshot.forEach((doc) => {
