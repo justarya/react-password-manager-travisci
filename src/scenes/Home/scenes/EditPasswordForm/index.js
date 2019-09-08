@@ -60,6 +60,9 @@ const EditPasswordForm = ({ match, history, editPassword, fetchPassword, detailP
     left: '50%',
     transform: 'translate(-50%, -50%)',
     padding: '15px',
+    borderRadius: '10px',
+    boxShadow: '0 10px 10px rgba(0,0,0,0.1)',
+    outline: 0
   }
 
   const formStyle = {
@@ -82,15 +85,15 @@ const EditPasswordForm = ({ match, history, editPassword, fetchPassword, detailP
           <form onSubmit={localEditPassword}>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--url">URL</InputLabel>
-              <Input id="input--url" defaultValue=" " value={ url } onChange={(e) => setUrl(e.target.value)} placeholder="URL" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--url" }}/>
+              <Input id="input--url" required defaultValue=" " value={ url } onChange={(e) => setUrl(e.target.value)} placeholder="URL" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--url" }}/>
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--username">Username</InputLabel>
-              <Input id="input--username" defaultValue=" " value={ username } onChange={(e) => setUsername(e.target.value)} placeholder="Username" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--username" }}/>
+              <Input id="input--username" required defaultValue=" " value={ username } onChange={(e) => setUsername(e.target.value)} placeholder="Username" autoComplete='off' inputProps={{ "data-testid": "edit-password--input--username" }}/>
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--password">Password</InputLabel>
-              <Input id="input--password" defaultValue=" " aria-describedby="my-helper-text" value={ password } onChange={localPasswordValidation} autoComplete='off' placeholder="Password" inputProps={{ "data-testid": "edit-password--input--password" }}/>
+              <Input id="input--password" required defaultValue=" " aria-describedby="my-helper-text" value={ password } onChange={localPasswordValidation} autoComplete='off' placeholder="Password" inputProps={{ "data-testid": "edit-password--input--password" }}/>
             </FormControl>
             <FormControl style={formStyle} data-testid="edit-password--input--password-validate">
               <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.uppercase ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one uppercase characther</FormHelperText>

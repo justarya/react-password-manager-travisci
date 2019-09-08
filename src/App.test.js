@@ -9,12 +9,14 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 
 import addPassword from './services/apis/password/__mocks__/addPassword'
+import deletePassword from './services/apis/password/__mocks__/deletePassword'
 // import { addPassword } from './services/store/actions'
 
 jest.mock('./services/apis/password/fetchPasswords')
 jest.mock('./services/apis/password/fetchPassword')
 jest.mock('./services/apis/password/addPassword')
 jest.mock('./services/apis/password/editPassword')
+jest.mock('./services/apis/password/deletePassword')
 
 afterEach(() => {
   cleanup()
@@ -97,11 +99,13 @@ test("Edit password", (done) => {
   })
 })
 
-test("Delete password", (done) => {
+test("Delete password", () => {
   const app = render(appHtml)
+  window.scrollTo = () => {};
 
   fireEvent.click(app.queryByTestId("button--password-list-item--delete"))
 
-  done()
+  fireEvent.click(app.getByText(/delete/i))
 
+  // expect(deletePassword).toHaveBeenCalled()
 })
