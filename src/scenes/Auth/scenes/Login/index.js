@@ -33,11 +33,11 @@ const Login = ({ login }) => {
         </Typography>
         <FormControl style={formControlStyle}>
           <InputLabel htmlFor="input--email">Email</InputLabel>
-          <Input id="input--email" required onChange={(e) => setEmail(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--email" }} />
+          <Input id="input--email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--email" }} />
         </FormControl>
         <FormControl style={formControlStyle}>
           <InputLabel htmlFor="input--password">Password</InputLabel>
-          <Input id="input--password" required onChange={(e) => setPassword(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--password" }} />
+          <Input id="input--password" required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "login--input--password" }} />
         </FormControl>
         <FormControl style={formControlStyle}>
           <Button type="submit" variant="contained" color="primary" data-testid="login--submit">

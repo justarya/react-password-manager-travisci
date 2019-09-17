@@ -26,7 +26,7 @@ jest.mock('./services/apis/auth/loginWithGoogle')
 jest.mock('./services/apis/auth/listener')
 jest.mock('./services/apis/auth/logout')
 
-
+console.error = () => {};
 
 afterEach(() => {
   cleanup()
