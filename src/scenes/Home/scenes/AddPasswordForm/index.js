@@ -71,22 +71,22 @@ const AddPasswordForm = ({ history, addPassword }) => {
           <form onSubmit={localAddPassword}>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--url">URL</InputLabel>
-              <Input id="input--url" required onChange={(e) => setUrl(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "add-password--input--url" }}/>
+              <Input id="input--url" required value={url} onChange={(e) => setUrl(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "add-password--input--url" }} />
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--username">Username</InputLabel>
-              <Input id="input--username" required onChange={(e) => setUsername(e.target.value)} autoComplete='off'  inputProps={{ "data-testid": "add-password--input--username" }}/>
+              <Input id="input--username" required value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off' inputProps={{ "data-testid": "add-password--input--username" }} />
             </FormControl>
             <FormControl style={formStyle}>
               <InputLabel htmlFor="input--password">Password</InputLabel>
-              <Input id="input--password" required aria-describedby="my-helper-text" onChange={localPasswordValidation} autoComplete='off' inputProps={{ "data-testid": "add-password--input--password" }}/>
+              <Input id="input--password" required aria-describedby="my-helper-text" value={password} onChange={localPasswordValidation} autoComplete='off' inputProps={{ "data-testid": "add-password--input--password" }} />
             </FormControl>
             <FormControl style={formStyle} data-testid="add-password--input--password-validate">
-              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.uppercase ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one uppercase characther</FormHelperText>
-              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.lowercase ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one lowercase characther</FormHelperText>
-              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.special ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one special character (#$@!&%...)</FormHelperText>
-              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.number ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have atleast one number</FormHelperText>
-              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.charLength ? <CheckCircleIcon fontSize="small"/> : <CheckCircleOutlineIcon fontSize="small"/>} &nbsp; Password must have more than five character</FormHelperText>
+              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.uppercase ? <CheckCircleIcon fontSize="small" /> : <CheckCircleOutlineIcon fontSize="small" />} &nbsp; Password must have atleast one uppercase characther</FormHelperText>
+              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.lowercase ? <CheckCircleIcon fontSize="small" /> : <CheckCircleOutlineIcon fontSize="small" />} &nbsp; Password must have atleast one lowercase characther</FormHelperText>
+              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.special ? <CheckCircleIcon fontSize="small" /> : <CheckCircleOutlineIcon fontSize="small" />} &nbsp; Password must have atleast one special character (#$@!&%...)</FormHelperText>
+              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.number ? <CheckCircleIcon fontSize="small" /> : <CheckCircleOutlineIcon fontSize="small" />} &nbsp; Password must have atleast one number</FormHelperText>
+              <FormHelperText style={{ display: 'flex', alignItems: 'center' }}>{passwordValidate.charLength ? <CheckCircleIcon fontSize="small" /> : <CheckCircleOutlineIcon fontSize="small" />} &nbsp; Password must have more than five character</FormHelperText>
             </FormControl>
             <FormControl style={formStyle}>
               <Button type="submit" variant="contained" color="primary" data-testid="add-password--submit">
